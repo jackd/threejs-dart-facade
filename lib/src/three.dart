@@ -1,40 +1,48 @@
-part of threejs_facade;
+@JS('THREE')
+library threejs_facade;
+
+import "package:func/func.dart";
+import "package:js/js.dart";
+import 'dart:html';
+import 'dart:web_audio' show AudioContext;
+// import 'dart:typed_data';
+// import 'package:meta/meta.dart';
 
 external int get REVISION;
 
 enum MOUSE { LEFT, MIDDLE, RIGHT }
 
-enum CullFace { dummy }
+// enum int /*CullFace*/ { dummy }
 external int get CullFaceNone;
 external int get CullFaceBack;
 external int get CullFaceFront;
 external int get CullFaceFrontBack;
 
-enum FrontFaceDirection { dummy }
+// enum int /*FrontFaceDirection*/ { dummy }
 external int get FrontFaceDirectionCW;
 external int get FrontFaceDirectionCCW;
 
-enum ShadowMapType { dummy }
+// enum int /*ShadowMapType*/ { dummy }
 external int get BasicShadowMap;
 external int get PCFShadowMap;
 external int get PCFSoftShadowMap;
 
-enum Side { dummy }
+// enum int /*Side*/ { dummy }
 external int get FrontSide;
 external int get BackSide;
 external int get DoubleSide;
 
-enum Shading { dummy }
+// enum int /*Shading*/ { dummy }
 external int get NoShading;
 external int get FlatShading;
 external int get SmoothShading;
 
-enum Colors { dummy }
+// enum int /*Colors*/ { dummy }
 external int get NoColors;
 external int get FaceColors;
 external int get VertexColors;
 
-enum Blending { dummy }
+// enum int /*Blending*/ { dummy }
 external int get NoBlending;
 external int get NormalBlending;
 external int get AdditiveBlending;
@@ -42,14 +50,14 @@ external int get SubtractiveBlending;
 external int get MultiplyBlending;
 external int get CustomBlending;
 
-enum BlendingEquation { dummy }
+// enum int /*BlendingEquation*/ { dummy }
 external int get AddEquation;
 external int get SubtractEquation;
 external int get ReverseSubtractEquation;
 external int get MinEquation;
 external int get MaxEquation;
 
-enum BlendingDstFactor { dummy }
+// enum int /*BlendingDstFactor*/ { dummy }
 external int get ZeroFactor;
 external int get OneFactor;
 external int get SrcColorFactor;
@@ -59,12 +67,12 @@ external int get OneMinusSrcAlphaFactor;
 external int get DstAlphaFactor;
 external int get OneMinusDstAlphaFactor;
 
-enum BlendingSrcFactor { dummy }
+// enum int /*BlendingSrcFactor*/ { dummy }
 external int get DstColorFactor;
 external int get OneMinusDstColorFactor;
 external int get SrcAlphaSaturateFactor;
 
-enum DepthModes { dummy }
+// enum int /*DepthModes*/ { dummy }
 external int get NeverDepth;
 external int get AlwaysDepth;
 external int get LessDepth;
@@ -74,12 +82,12 @@ external int get GreaterEqualDepth;
 external int get GreaterDepth;
 external int get NotEqualDepth;
 
-enum Combine { dummy }
+// enum int /*Combine*/ { dummy }
 external int get MultiplyOperation;
 external int get MixOperation;
 external int get AddOperation;
 
-enum Mapping { dummy }
+// enum int /*Mapping*/ { dummy }
 external int get UVMapping;
 external int get CubeReflectionMapping;
 external int get CubeRefractionMapping;
@@ -87,12 +95,12 @@ external int get EquirectangularReflectionMapping;
 external int get EquirectangularRefractionMapping;
 external int get SphericalReflectionMapping;
 
-enum Wrapping { dummy }
+// enum int /*Wrapping*/ { dummy }
 external int get RepeatWrapping;
 external int get ClampToEdgeWrapping;
 external int get MirroredRepeatWrapping;
 
-enum TextureFilter { dummy }
+// enum int /*TextureFilter*/ { dummy }
 external int get NearestFilter;
 external int get NearestMipMapNearestFilter;
 external int get NearestMipMapLinearFilter;
@@ -100,7 +108,7 @@ external int get LinearFilter;
 external int get LinearMipMapNearestFilter;
 external int get LinearMipMapLinearFilter;
 
-enum TextureDataType { dummy }
+// enum int /*TextureDataType*/ { dummy }
 external int get UnsignedByteType;
 external int get ByteType;
 external int get ShortType;
@@ -110,12 +118,12 @@ external int get UnsignedIntType;
 external int get FloatType;
 external int get HalfFloatType;
 
-enum PixelType { dummy }
+// enum int /*PixelType*/ { dummy }
 external int get UnsignedShort4444Type;
 external int get UnsignedShort5551Type;
 external int get UnsignedShort565Type;
 
-enum PixelFormat { dummy }
+// enum int /*PixelFormat*/ { dummy }
 external int get AlphaFormat;
 external int get RGBFormat;
 external int get RGBAFormat;
@@ -123,7 +131,7 @@ external int get LuminanceFormat;
 external int get LuminanceAlphaFormat;
 external int get RGBEFormat;
 
-enum CompressedPixelFormat { dummy }
+// enum CompressedPixelFormat { dummy }
 external int get RGB_S3TC_DXT1_Format;
 external int get RGBA_S3TC_DXT1_Format;
 external int get RGBA_S3TC_DXT3_Format;
@@ -134,7 +142,7 @@ external int get RGB_PVRTC_2BPPV1_Format;
 external int get RGBA_PVRTC_4BPPV1_Format;
 external int get RGBA_PVRTC_2BPPV1_Format;
 
-enum AnimationActionLoopStyles { dummy }
+// enum AnimationActionLoopStyles { dummy }
 external int get LoopOnce;
 external int get LoopRepeat;
 external int get LoopPingPong;
@@ -162,8 +170,8 @@ class AnimationAction {
   external set timeScale(num v);
   external num get weight;
   external set weight(num v);
-  external AnimationActionLoopStyles get loop;
-  external set loop(AnimationActionLoopStyles v);
+  // external AnimationActionLoopStyles get loop;
+  // external set loop(AnimationActionLoopStyles v);
   external num get loopCount;
   external set loopCount(num v);
   external bool get enabled;
@@ -396,8 +404,8 @@ class Camera extends Object3D {
   external set projectionMatrix(Matrix4 v);
   external Vector3 getWorldDirection(Vector3 optionalTarget);
   external void lookAt(Vector3 vector);
-  external Camera clone();
-  external Camera copy(Camera camera);
+  external Camera clone(bool recursive);
+  external Camera copy(Camera camera, bool recursive);
 }
 
 @JS()
@@ -435,8 +443,8 @@ class OrthographicCamera extends Camera {
   external num get far;
   external set far(num v);
   external void updateProjectionMatrix();
-  external OrthographicCamera clone();
-  external OrthographicCamera copy(OrthographicCamera source);
+  external OrthographicCamera clone(bool recurvise);
+  external OrthographicCamera copy(OrthographicCamera source, bool recursive);
   external dynamic toJSON(dynamic meta);
 }
 
@@ -462,8 +470,8 @@ class PerspectiveCamera extends Camera {
   external void setViewOffset(
       num fullWidth, num fullHeight, num x, num y, num width, num height);
   external void updateProjectionMatrix();
-  external PerspectiveCamera clone();
-  external PerspectiveCamera copy(PerspectiveCamera source);
+  external PerspectiveCamera clone(bool recursive);
+  external PerspectiveCamera copy(PerspectiveCamera source, bool recursive);
   external dynamic toJSON(dynamic meta);
 }
 
@@ -491,7 +499,7 @@ class BufferAttribute {
   external num get count;
   external set count(num v);
   external BufferAttribute setDynamic(bool dynamic);
-  external BufferAttribute copy(BufferAttribute source);
+  external BufferAttribute copy(covariant BufferAttribute source);
   external BufferAttribute copyAt(
       num index1, BufferAttribute attribute, num index2);
   external BufferAttribute copyArray(List<num> array);
@@ -517,6 +525,8 @@ class BufferAttribute {
   external BufferAttribute setXY(num index, num x, num y);
   external BufferAttribute setXYZ(num index, num x, num y, num z);
   external BufferAttribute setXYZW(num index, num x, num y, num z, num w);
+
+  external onUpload(VoidFunc0 callback);
 }
 
 @JS()
@@ -565,7 +575,7 @@ class Float64Attribute extends BufferAttribute {
 }
 
 @JS()
-class BufferGeometry {
+class BufferGeometry extends Geometry {
   external factory BufferGeometry();
 
   external static num get MaxIndex;
@@ -628,14 +638,14 @@ class BufferGeometry {
   external void computeBoundingBox();
   external void computeBoundingSphere();
   external void computeFaceNormals();
-  external void computeVertexNormals();
+  external void computeVertexNormals([bool areaWeighted]);
   external void computeOffsets(num size);
   external BufferGeometry merge(BufferGeometry geometry, num offset);
   external void normalizeNormals();
   //external Func0<dynamic> get toJSON;
   external set toJSON(Func0<dynamic> v);
   external BufferGeometry clone();
-  external BufferGeometry copy(BufferGeometry source);
+  external BufferGeometry copy(covariant BufferGeometry source);
   external void dispose();
   external void addEventListener(String type, VoidFunc1<dynamic> listener);
   external void hasEventListener(String type, VoidFunc1<dynamic> listener);
@@ -921,8 +931,8 @@ class Geometry {
   external void computeLineDistances();
   external void computeBoundingBox();
   external void computeBoundingSphere();
-  external void merge(
-      Geometry geometry, Matrix matrix, num materialIndexOffset);
+  // external void merge(
+  //     covariant Geometry geometry, Matrix matrix, num materialIndexOffset);
   external void mergeMesh(Mesh mesh);
   external num mergeVertices();
   external void sortFacesByMaterialIndex();
@@ -1001,7 +1011,7 @@ class InterleavedBuffer {
   external bool get needsUpdate;
   external set needsUpdate(bool v);
   external InterleavedBuffer setDynamic(bool dynamic);
-  external InterleavedBuffer copy(InterleavedBuffer source);
+  external InterleavedBuffer copy(covariant InterleavedBuffer source);
   external InterleavedBuffer copyAt(
       num index1, InterleavedBufferAttribute attribute, num index2);
   external InterleavedBuffer set(List<num> value, num index);
@@ -1137,10 +1147,11 @@ class Object3D {
   external Vector3 localToWorld(Vector3 vector);
   external Vector3 worldToLocal(Vector3 vector);
   external void lookAt(Vector3 vector);
-  external void add(Object3D object);
+  // external void add(Object3D object);
   external void remove(Object3D object);
 
-  /* deprecated */ external Object3D getChildByName(String name);
+  @deprecated
+  external Object3D getChildByName(String name);
   external Object3D getObjectById(num id);
   external Object3D getObjectByName(String name);
   external Object3D getObjectByProperty(String name, String value);
@@ -1157,7 +1168,7 @@ class Object3D {
   external void updateMatrixWorld(bool force);
   external dynamic toJSON(dynamic meta);
   external Object3D clone(bool recursive);
-  external Object3D copy(Object3D source, bool recursive);
+  external Object3D copy(covariant Object3D source, bool recursive);
   external void addEventListener(String type, VoidFunc1<dynamic> listener);
   external void hasEventListener(String type, VoidFunc1<dynamic> listener);
   external void removeEventListener(String type, VoidFunc1<dynamic> listener);
@@ -1262,8 +1273,8 @@ class Light extends Object3D {
   external set shadowMapWidth(num v);
   external num get shadowMapHeight;
   external set shadowMapHeight(num v);
-  external Light clone(bool recursive);
-  external Light copy(Light source);
+  external Light clone([bool recursive]);
+  external Light copy(Light source, [bool recursive]);
   external dynamic toJSON(dynamic meta);
 }
 
@@ -1289,15 +1300,15 @@ class LightShadow {
 
 @JS()
 class AmbientLight extends Light {
-  external factory AmbientLight([dynamic hex]);
+  external factory AmbientLight([Color color]);
 
-  external AmbientLight clone(bool recursive);
-  external AmbientLight copy(AmbientLight source);
+  external AmbientLight clone([bool recursive]);
+  external AmbientLight copy(AmbientLight source, [bool recursive]);
 }
 
 @JS()
 class DirectionalLight extends Light {
-  external factory DirectionalLight([dynamic hex, num intensity]);
+  external factory DirectionalLight([Color color, num intensity]);
 
   external Object3D get target;
   external set target(Object3D v);
@@ -1307,21 +1318,21 @@ class DirectionalLight extends Light {
 
   external LightShadow get shadow;
   external set shadow(LightShadow v);
-  external DirectionalLight clone(bool recursive);
-  external DirectionalLight copy(DirectionalLight source);
+  external DirectionalLight clone([bool recursive]);
+  external DirectionalLight copy(DirectionalLight source, [bool recursive]);
 }
 
 @JS()
 class HemisphereLight extends Light {
   external factory HemisphereLight(
-      [dynamic skyColorHex, dynamic groundColorHex, num intensity]);
+      [Color skyColor, Color groundColor, num intensity]);
 
   external Color get groundColor;
   external set groundColor(Color v);
   external num get intensity;
   external set intensity(num v);
-  external HemisphereLight clone(bool recursive);
-  external HemisphereLight copy(HemisphereLight source);
+  external HemisphereLight clone([bool recursive]);
+  external HemisphereLight copy(HemisphereLight source, [bool recursive]);
 }
 
 @JS()
@@ -1344,8 +1355,8 @@ class PointLight extends Light {
 
   external LightShadow get shadow;
   external set shadow(LightShadow v);
-  external PointLight clone(bool recursive);
-  external PointLight copy(PointLight source);
+  external PointLight clone([bool recursive]);
+  external PointLight copy(PointLight source, [bool recursive]);
 }
 
 @JS()
@@ -1382,8 +1393,8 @@ class SpotLight extends Light {
 
   external LightShadow get shadow;
   external set shadow(LightShadow v);
-  external SpotLight clone(bool recursive);
-  external SpotLight copy(PointLight source);
+  external SpotLight clone([bool recursive]);
+  external SpotLight copy(PointLight source, [bool recursive]);
 }
 
 @JS()
@@ -1587,7 +1598,7 @@ class TextureLoader {
   external set manager(LoadingManager v);
   external String get crossOrigin;
   external set crossOrigin(String v);
-  external Texture load(String url, VoidFunc1<Texture> onLoad);
+  external Texture load(String url, [VoidFunc1<Texture> onLoad]);
   external void setCrossOrigin(String crossOrigin);
 }
 
@@ -1603,8 +1614,8 @@ class XHRLoader {
   external set responseType(String v);
   external String get crossOrigin;
   external set crossOrigin(String v);
-  external dynamic load(String url, VoidFunc1<String> onLoad,
-                        VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
+  external dynamic load(String url, [VoidFunc1<String> onLoad,
+                        VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError]);
   external void setResponseType(String responseType);
   external void setCrossOrigin(String crossOrigin);
   external void setWithCredentials(String withCredentials);
@@ -1616,20 +1627,20 @@ class MaterialParameters {
 
   external String get name;
   external set name(String v);
-  external Side get side;
-  external set side(Side v);
+  external int /*Side*/ get side;
+  external set side(int /*Side*/ v);
   external num get opacity;
   external set opacity(num v);
   external bool get transparent;
   external set transparent(bool v);
-  external Blending get blending;
-  external set blending(Blending v);
-  external BlendingDstFactor get blendSrc;
-  external set blendSrc(BlendingDstFactor v);
-  external BlendingSrcFactor get blendDst;
-  external set blendDst(BlendingSrcFactor v);
-  external BlendingEquation get blendEquation;
-  external set blendEquation(BlendingEquation v);
+  external int /*Blending*/ get blending;
+  external set blending(int /*Blending*/ v);
+  external int /*BlendingDstFactor*/ get blendSrc;
+  external set blendSrc(int /*BlendingDstFactor*/ v);
+  external int /*BlendingSrcFactor*/ get blendDst;
+  external set blendDst(int /*BlendingSrcFactor*/ v);
+  external int /*BlendingEquation*/ get blendEquation;
+  external set blendEquation(int /*BlendingEquation*/ v);
   external bool get depthTest;
   external set depthTest(bool v);
   external bool get depthWrite;
@@ -1666,8 +1677,8 @@ class Material {
   external String get type;
   external set type(String v);
 
-  external Side get side;
-  external set side(Side v);
+  external int /*Side*/ get side;
+  external set side(int /*Side*/ v);
 
   external num get opacity;
   external set opacity(num v);
@@ -1675,17 +1686,17 @@ class Material {
   external bool get transparent;
   external set transparent(bool v);
 
-  external Blending get blending;
-  external set blending(Blending v);
+  external int /*Blending*/ get blending;
+  external set blending(int /*Blending*/ v);
 
-  external BlendingDstFactor get blendSrc;
-  external set blendSrc(BlendingDstFactor v);
+  external int /*BlendingDstFactor*/ get blendSrc;
+  external set blendSrc(int /*BlendingDstFactor*/ v);
 
-  external BlendingSrcFactor get blendDst;
-  external set blendDst(BlendingSrcFactor v);
+  external int /*BlendingSrcFactor*/ get blendDst;
+  external set blendDst(int /*BlendingSrcFactor*/ v);
 
-  external BlendingEquation get blendEquation;
-  external set blendEquation(BlendingEquation v);
+  external int /*BlendingEquation*/ get blendEquation;
+  external set blendEquation(int /*BlendingEquation*/ v);
 
   external num get blendSrcAlpha;
   external set blendSrcAlpha(num v);
@@ -1694,8 +1705,8 @@ class Material {
   external num get blendEquationAlpha;
   external set blendEquationAlpha(num v);
 
-  external DepthModes get depthFunc;
-  external set depthFunc(DepthModes v);
+  external int /*DepthModes*/ get depthFunc;
+  external set depthFunc(int /*DepthModes*/ v);
 
   external bool get depthTest;
   external set depthTest(bool v);
@@ -1731,7 +1742,7 @@ class Material {
   external set needsUpdate(bool v);
   external void setValues(Object values);
   external dynamic toJSON(dynamic meta);
-  external Material clone(Material source);
+  // external Material clone(Material source);
   external void update();
   external void dispose();
   external void addEventListener(String type, VoidFunc1<dynamic> listener);
@@ -1756,8 +1767,8 @@ class LineBasicMaterialParameters extends MaterialParameters {
   external set linecap(String v);
   external String get linejoin;
   external set linejoin(String v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get fog;
   external set fog(bool v);
 }
@@ -1774,8 +1785,8 @@ class LineBasicMaterial extends Material {
   external set linecap(String v);
   external String get linejoin;
   external set linejoin(String v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get fog;
   external set fog(bool v);
   external LineBasicMaterial clone();
@@ -1796,8 +1807,8 @@ class LineDashedMaterialParameters extends MaterialParameters {
   external set dashSize(num v);
   external num get gapSize;
   external set gapSize(num v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get fog;
   external set fog(bool v);
 }
@@ -1817,8 +1828,8 @@ class LineDashedMaterial extends Material {
   external set dashSize(num v);
   external num get gapSize;
   external set gapSize(num v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get fog;
   external set fog(bool v);
   external LineDashedMaterial clone();
@@ -1845,16 +1856,16 @@ class MeshBasicMaterialParameters extends MaterialParameters {
   external set alphaMap(Texture v);
   external Texture get envMap;
   external set envMap(Texture v);
-  external Combine get combine;
-  external set combine(Combine v);
+  external int /*Combine*/ get combine;
+  external set combine(int /*Combine*/ v);
   external num get reflectivity;
   external set reflectivity(num v);
   external num get refractionRatio;
   external set refractionRatio(num v);
-  external Shading get shading;
-  external set shading(Shading v);
-  external Blending get blending;
-  external set blending(Blending v);
+  external int /*Shading*/ get shading;
+  external set shading(int /*Shading*/ v);
+  external int /*Blending*/ get blending;
+  external set blending(int /*Blending*/ v);
   external bool get depthTest;
   external set depthTest(bool v);
   external bool get depthWrite;
@@ -1863,8 +1874,8 @@ class MeshBasicMaterialParameters extends MaterialParameters {
   external set wireframe(bool v);
   external num get wireframeLinewidth;
   external set wireframeLinewidth(num v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get skinning;
   external set skinning(bool v);
   external bool get morphTargets;
@@ -1891,16 +1902,16 @@ class MeshBasicMaterial extends Material {
   external set alphaMap(Texture v);
   external Texture get envMap;
   external set envMap(Texture v);
-  external Combine get combine;
-  external set combine(Combine v);
+  external int /*Combine*/ get combine;
+  external set combine(int /*Combine*/ v);
   external num get reflectivity;
   external set reflectivity(num v);
   external num get refractionRatio;
   external set refractionRatio(num v);
   external bool get fog;
   external set fog(bool v);
-  external Shading get shading;
-  external set shading(Shading v);
+  external int /*Shading*/ get shading;
+  external set shading(int /*Shading*/ v);
   external bool get wireframe;
   external set wireframe(bool v);
   external num get wireframeLinewidth;
@@ -1909,8 +1920,8 @@ class MeshBasicMaterial extends Material {
   external set wireframeLinecap(String v);
   external String get wireframeLinejoin;
   external set wireframeLinejoin(String v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get skinning;
   external set skinning(bool v);
   external bool get morphTargets;
@@ -1960,8 +1971,8 @@ class MeshLambertMaterialParameters extends MaterialParameters {
   external set alphaMap(Texture v);
   external Texture get envMap;
   external set envMap(Texture v);
-  external Combine get combine;
-  external set combine(Combine v);
+  external int /*Combine*/ get combine;
+  external set combine(int /*Combine*/ v);
   external num get reflectivity;
   external set reflectivity(num v);
   external num get refractionRatio;
@@ -1972,8 +1983,8 @@ class MeshLambertMaterialParameters extends MaterialParameters {
   external set wireframe(bool v);
   external num get wireframeLinewidth;
   external set wireframeLinewidth(num v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get skinning;
   external set skinning(bool v);
   external bool get morphTargets;
@@ -1999,8 +2010,8 @@ class MeshLambertMaterial extends Material {
   external set alphaMap(Texture v);
   external Texture get envMap;
   external set envMap(Texture v);
-  external Combine get combine;
-  external set combine(Combine v);
+  external int /*Combine*/ get combine;
+  external set combine(int /*Combine*/ v);
   external num get reflectivity;
   external set reflectivity(num v);
   external num get refractionRatio;
@@ -2015,8 +2026,8 @@ class MeshLambertMaterial extends Material {
   external set wireframeLinecap(String v);
   external String get wireframeLinejoin;
   external set wireframeLinejoin(String v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get skinning;
   external set skinning(bool v);
   external bool get morphTargets;
@@ -2033,10 +2044,10 @@ class MeshNormalMaterialParameters extends MaterialParameters {
 
   external num get opacity;
   external set opacity(num v);
-  external Shading get shading;
-  external set shading(Shading v);
-  external Blending get blending;
-  external set blending(Blending v);
+  external int /*Shading*/ get shading;
+  external set shading(int /*Shading*/ v);
+  external int /*Blending*/ get blending;
+  external set blending(int /*Blending*/ v);
   external bool get depthTest;
   external set depthTest(bool v);
   external bool get depthWrite;
@@ -2112,16 +2123,16 @@ class MeshPhongMaterialParameters extends MaterialParameters {
   external set alphaMap(Texture v);
   external Texture get envMap;
   external set envMap(Texture v);
-  external Combine get combine;
-  external set combine(Combine v);
+  external int /*Combine*/ get combine;
+  external set combine(int /*Combine*/ v);
   external num get reflectivity;
   external set reflectivity(num v);
   external num get refractionRatio;
   external set refractionRatio(num v);
-  external Shading get shading;
-  external set shading(Shading v);
-  external Blending get blending;
-  external set blending(Blending v);
+  external int /*Shading*/ get shading;
+  external set shading(int /*Shading*/ v);
+  external int /*Blending*/ get blending;
+  external set blending(int /*Blending*/ v);
   external bool get depthTest;
   external set depthTest(bool v);
   external bool get depthWrite;
@@ -2130,8 +2141,8 @@ class MeshPhongMaterialParameters extends MaterialParameters {
   external set wireframe(bool v);
   external num get wireframeLinewidth;
   external set wireframeLinewidth(num v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get skinning;
   external set skinning(bool v);
   external bool get morphTargets;
@@ -2188,16 +2199,16 @@ class MeshPhongMaterial extends Material {
   external set alphaMap(Texture v);
   external Texture get envMap;
   external set envMap(Texture v);
-  external Combine get combine;
-  external set combine(Combine v);
+  external int /*Combine*/ get combine;
+  external set combine(int /*Combine*/ v);
   external num get reflectivity;
   external set reflectivity(num v);
   external num get refractionRatio;
   external set refractionRatio(num v);
   external bool get fog;
   external set fog(bool v);
-  external Shading get shading;
-  external set shading(Shading v);
+  external int /*Shading*/ get shading;
+  external set shading(int /*Shading*/ v);
   external bool get wireframe;
   external set wireframe(bool v);
   external num get wireframeLinewidth;
@@ -2206,8 +2217,8 @@ class MeshPhongMaterial extends Material {
   external set wireframeLinecap(String v);
   external String get wireframeLinejoin;
   external set wireframeLinejoin(String v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get skinning;
   external set skinning(bool v);
   external bool get morphTargets;
@@ -2249,14 +2260,14 @@ class PointsMaterialParameters extends MaterialParameters {
   external set size(num v);
   external bool get sizeAttenuation;
   external set sizeAttenuation(bool v);
-  external Blending get blending;
-  external set blending(Blending v);
+  external int /*Blending*/ get blending;
+  external set blending(int /*Blending*/ v);
   external bool get depthTest;
   external set depthTest(bool v);
   external bool get depthWrite;
   external set depthWrite(bool v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get fog;
   external set fog(bool v);
 }
@@ -2298,10 +2309,10 @@ class ShaderMaterialParameters extends MaterialParameters {
   external set fragmentShader(String v);
   external String get vertexShader;
   external set vertexShader(String v);
-  external Shading get shading;
-  external set shading(Shading v);
-  external Blending get blending;
-  external set blending(Blending v);
+  external int /*Shading*/ get shading;
+  external set shading(int /*Shading*/ v);
+  external int /*Blending*/ get blending;
+  external set blending(int /*Blending*/ v);
   external bool get depthTest;
   external set depthTest(bool v);
   external bool get depthWrite;
@@ -2312,8 +2323,8 @@ class ShaderMaterialParameters extends MaterialParameters {
   external set wireframeLinewidth(num v);
   external bool get lights;
   external set lights(bool v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get skinning;
   external set skinning(bool v);
   external bool get morphTargets;
@@ -2336,8 +2347,8 @@ class ShaderMaterial extends Material {
   external set vertexShader(String v);
   external String get fragmentShader;
   external set fragmentShader(String v);
-  external Shading get shading;
-  external set shading(Shading v);
+  external int /*Shading*/ get shading;
+  external set shading(int /*Shading*/ v);
   external num get linewidth;
   external set linewidth(num v);
   external bool get wireframe;
@@ -2348,8 +2359,8 @@ class ShaderMaterial extends Material {
   external set fog(bool v);
   external bool get lights;
   external set lights(bool v);
-  external Colors get vertexColors;
-  external set vertexColors(Colors v);
+  external int /*Colors*/ get vertexColors;
+  external set vertexColors(int /*Colors*/ v);
   external bool get skinning;
   external set skinning(bool v);
   external bool get morphTargets;
@@ -2377,8 +2388,8 @@ class SpriteMaterialParameters extends MaterialParameters {
   external set opacity(num v);
   external Texture get map;
   external set map(Texture v);
-  external Blending get blending;
-  external set blending(Blending v);
+  external int /*Blending*/ get blending;
+  external set blending(int /*Blending*/ v);
   external bool get depthTest;
   external set depthTest(bool v);
   external bool get depthWrite;
@@ -3073,33 +3084,33 @@ class Triangle {
 }
 
 @JS()
-class Vector {
+class Vector<T extends Vector<T>> {
   external factory Vector();
 
   external void setComponent(num index, num value);
   external num getComponent(num index);
-  external Vector copy(Vector v);
-  external Vector add(Vector v);
-  external Vector addVectors(Vector a, Vector b);
-  external Vector sub(Vector v);
-  external Vector subVectors(Vector a, Vector b);
-  external Vector multiplyScalar(num s);
-  external Vector divideScalar(num s);
-  external Vector negate();
-  external num dot(Vector v);
+  external T copy(T v);
+  external T add(T v);
+  external T addTs(T a, T b);
+  external T sub(T v);
+  external T subTs(T a, T b);
+  external T multiplyScalar(num s);
+  external T divideScalar(num s);
+  external T negate();
+  external num dot(T v);
   external num lengthSq();
   external num length();
-  external Vector normalize();
-  external num distanceTo(Vector v);
-  external num distanceToSquared(Vector v);
-  external Vector setLength(num l);
-  external Vector lerp(Vector v, num alpha);
-  external bool equals(Vector v);
-  external Vector clone();
+  external T normalize();
+  external num distanceTo(T v);
+  external num distanceToSquared(T v);
+  external T setLength(num l);
+  external T lerp(T v, num alpha);
+  external bool equals(T v);
+  external T clone();
 }
 
 @JS()
-class Vector2 extends Vector {
+class Vector2 extends Vector<Vector2> {
   external factory Vector2([num x, num y]);
 
   external num get x;
@@ -3157,7 +3168,7 @@ class Vector2 extends Vector {
 }
 
 @JS()
-class Vector3 extends Vector {
+class Vector3 extends Vector<Vector3> {
   external factory Vector3([num x, num y, num z]);
 
   external num get x;
@@ -3232,7 +3243,7 @@ class Vector3 extends Vector {
 }
 
 @JS()
-class Vector4 extends Vector {
+class Vector4 extends Vector<Vector4> {
   external factory Vector4([num x, num y, num z, num w]);
 
   external num get x;
@@ -3293,8 +3304,8 @@ class Bone extends Object3D {
 
   external SkinnedMesh get skin;
   external set skin(SkinnedMesh v);
-  external Bone clone();
-  external Bone copy(Bone source);
+  external Bone clone([bool recursive]);
+  external Bone copy(Bone source, [bool recursive]);
 }
 
 @JS()
@@ -3312,8 +3323,8 @@ class LOD extends Object3D {
   external Object3D getObjectForDistance(num distance);
   external void raycast(Raycaster raycaster, dynamic intersects);
   external void update(Camera camera);
-  external LOD clone();
-  external LOD copy(LOD source);
+  external LOD clone([bool recursive]);
+  external LOD copy(LOD source, [bool recursive]);
   external dynamic toJSON(dynamic meta);
 }
 
@@ -3341,8 +3352,8 @@ class LensFlareProperty {
   external set opacity(num v);
   external Color get color;
   external set color(Color v);
-  external Blending get blending;
-  external set blending(Blending v);
+  external int /*Blending*/ get blending;
+  external set blending(int /*Blending*/ v);
 }
 
 @JS()
@@ -3351,7 +3362,7 @@ class LensFlare extends Object3D {
       [Texture texture,
       num size,
       num distance,
-      Blending blending,
+      int /*Blending*/ blending,
       Color color]);
 
   external List<LensFlareProperty> get lensFlares;
@@ -3360,10 +3371,10 @@ class LensFlare extends Object3D {
   external set positionScreen(Vector3 v);
   external void customUpdateCallback(LensFlare object);
   external void add(
-      Texture texture, num size, num distance, Blending blending, Color color);
+      Texture texture, num size, num distance, int /*Blending*/ blending, Color color);
   external void updateLensFlares();
-  external LensFlare clone();
-  external LensFlare copy(LensFlare source);
+  external LensFlare clone([bool recursive]);
+  external LensFlare copy(LensFlare source, [bool recursive]);
 }
 
 @JS()
@@ -3375,23 +3386,23 @@ class Line extends Object3D {
   external Material get material;
   external set material(Material v);
   external void raycast(Raycaster raycaster, dynamic intersects);
-  external Line clone();
-  external Line copy(Line source);
+  external Line clone([bool recursive]);
+  external Line copy(Line source, [bool recursive]);
 }
 
 @JS()
 class LineSegments extends Line {
-  external factory LineSegments(dynamic geometry, dynamic material, num mode);
+  external factory LineSegments(Geometry geometry, Material material, [num mode]);
 
-  external LineSegments clone();
-  external LineSegments copy(LineSegments source);
+  external LineSegments clone([bool recursive]);
+  external LineSegments copy(LineSegments source, [bool recursive]);
 }
 
 enum LineMode { dummy }
 
 @JS()
 class Mesh extends Object3D {
-  external factory Mesh([BufferGeometry geometry, Material material]);
+  external factory Mesh([Geometry geometry, Material material]);
 
   external dynamic get geometry;
   external set geometry(dynamic v);
@@ -3400,8 +3411,8 @@ class Mesh extends Object3D {
   external void updateMorphTargets();
   external num getMorphTargetIndexByName(String name);
   external void raycast(Raycaster raycaster, dynamic intersects);
-  external Mesh clone();
-  external Mesh copy(Mesh source);
+  external Mesh clone([bool recursive]);
+  external Mesh copy(Mesh source, [bool recursive]);
 }
 
 @JS()
@@ -3414,8 +3425,8 @@ class Points extends Object3D {
   external Material get material;
   external set material(Material v);
   external void raycast(Raycaster raycaster, dynamic intersects);
-  external Points clone();
-  external Points copy(Points source);
+  external Points clone([bool recursive]);
+  external Points copy(Points source, [bool recursive]);
 }
 
 @JS()
@@ -3460,8 +3471,8 @@ class SkinnedMesh extends Mesh {
   external void pose();
   external void normalizeSkinWeights();
   external void updateMatrixWorld(bool force);
-  external SkinnedMesh clone();
-  external SkinnedMesh copy(SkinnedMesh source);
+  external SkinnedMesh clone([bool recursive]);
+  external SkinnedMesh copy(SkinnedMesh source, [bool recursive]);
 
   external Skeleton get skeleton;
   external set skeleton(Skeleton v);
@@ -3476,8 +3487,8 @@ class Sprite extends Object3D {
   external SpriteMaterial get material;
   external set material(SpriteMaterial v);
   external void raycast(Raycaster raycaster, dynamic intersects);
-  external Sprite clone();
-  external Sprite copy(Sprite source);
+  external Sprite clone([bool recursive]);
+  external Sprite copy(Sprite source, [bool recursive]);
 }
 
 @JS()
@@ -3485,9 +3496,9 @@ class Renderer {
   external factory Renderer();
 
   external void render(Scene scene, Camera camera);
-  external void setSize(num width, num height, bool updateStyle);
-  external CanvasElement get domElement;
-  external set domElement(CanvasElement v);
+  external void setSize(num width, num height, [bool updateStyle]);
+  external Element get domElement;
+  external set domElement(covariant Element v);
 }
 
 @JS()
@@ -3529,6 +3540,18 @@ class WebGLRendererParameters {
 }
 
 @JS()
+class WebGLRenderingContext{}
+
+@JS()
+class AudioBufferSourceNode{}
+
+@JS()
+class GainNode{}
+
+@JS()
+class PannerNode{}
+
+@JS()
 class WebGLRenderer {
   external factory WebGLRenderer([WebGLRendererParameters parameters]);
 
@@ -3568,11 +3591,11 @@ class WebGLRenderer {
   external bool get shadowMapEnabled;
   external set shadowMapEnabled(bool v);
 
-  external ShadowMapType get shadowMapType;
-  external set shadowMapType(ShadowMapType v);
+  external int /*ShadowMapType*/ get shadowMapType;
+  external set shadowMapType(int /*ShadowMapType*/ v);
 
-  external CullFace get shadowMapCullFace;
-  external set shadowMapCullFace(CullFace v);
+  external int /*CullFace*/ get shadowMapCullFace;
+  external set shadowMapCullFace(int /*CullFace*/ v);
 
   external bool get shadowMapDebug;
   external set shadowMapDebug(bool v);
@@ -3597,6 +3620,7 @@ class WebGLRenderer {
   external WebGLCapabilities get capabilities;
   external set capabilities(WebGLCapabilities v);
 
+  @deprecated
   /** Deprecated, use capabilities instead */ external bool
   supportsVertexTextures();
   external bool supportsFloatTextures();
@@ -3612,11 +3636,11 @@ class WebGLRenderer {
 /*         getSize() # width: external nu get m;
 		external set m(nu v); height: external nu get m;
 		external set m(nu v); # ; */
-  external void setSize(num width, num height, bool updateStyle);
+  external void setSize(num width, num height, [bool updateStyle]);
   external void setViewport(num x, num y, num width, num height);
   external void setScissor(num x, num y, num width, num height);
   external void enableScissorTest(bool enable);
-  external void setClearColor(String color, num alpha);
+  external void setClearColor(Color color, [num alpha]);
   external void setClearAlpha(num alpha);
   external void setClearColorHex(num hex, num alpha);
   external Color getClearColor();
@@ -3637,15 +3661,15 @@ class WebGLRenderer {
   external void renderBuffer(Camera camera, List<Light> lights, Fog fog,
                              Material material, dynamic geometryGroup, Object3D object);
   external void render(
-      Scene scene, Camera camera, RenderTarget renderTarget, bool forceClear);
+      Scene scene, Camera camera, [RenderTarget renderTarget, bool forceClear]);
   external void renderImmediateObject(Camera camera, List<Light> lights,
                                       Fog fog, Material material, Object3D object);
-  external void setFaceCulling(CullFace cullFace, FrontFaceDirection frontFace);
+  external void setFaceCulling(int /*CullFace*/ cullFace, int /*FrontFaceDirection*/ frontFace);
   external void setMaterialFaces(Material material);
   external void setDepthTest(bool depthTest);
   external void setDepthWrite(bool depthWrite);
-  external void setBlending(Blending blending, BlendingEquation blendEquation,
-                            BlendingSrcFactor blendSrc, BlendingDstFactor blendDst);
+  external void setBlending(int /*Blending*/ blending, int /*BlendingEquation*/ blendEquation,
+                            int /*BlendingSrcFactor*/ blendSrc, int /*BlendingDstFactor*/ blendDst);
   external void uploadTexture(Texture texture);
   external void setTexture(Texture texture, num slot);
   external void setRenderTarget(RenderTarget renderTarget);
@@ -3662,20 +3686,20 @@ class RenderTarget {
 class WebGLRenderTargetOptions {
   external factory WebGLRenderTargetOptions();
 
-  external Wrapping get wrapS;
-  external set wrapS(Wrapping v);
-  external Wrapping get wrapT;
-  external set wrapT(Wrapping v);
-  external TextureFilter get magFilter;
-  external set magFilter(TextureFilter v);
-  external TextureFilter get minFilter;
-  external set minFilter(TextureFilter v);
+  external int /*Wrapping*/ get wrapS;
+  external set wrapS(int /*Wrapping*/ v);
+  external int /*Wrapping*/ get wrapT;
+  external set wrapT(int /*Wrapping*/ v);
+  external int /*TextureFilter*/ get magFilter;
+  external set magFilter(int /*TextureFilter*/ v);
+  external int /*TextureFilter*/ get minFilter;
+  external set minFilter(int /*TextureFilter*/ v);
   external num get anisotropy;
   external set anisotropy(num v);
   external num get format;
   external set format(num v);
-  external TextureDataType get type;
-  external set type(TextureDataType v);
+  external int /*TextureDataType*/ get type;
+  external set type(int /*TextureDataType*/ v);
   external bool get depthBuffer;
   external set depthBuffer(bool v);
   external bool get stencilBuffer;
@@ -3693,14 +3717,14 @@ class WebGLRenderTarget {
   external set width(num v);
   external num get height;
   external set height(num v);
-  external Wrapping get wrapS;
-  external set wrapS(Wrapping v);
-  external Wrapping get wrapT;
-  external set wrapT(Wrapping v);
-  external TextureFilter get magFilter;
-  external set magFilter(TextureFilter v);
-  external TextureFilter get minFilter;
-  external set minFilter(TextureFilter v);
+  external int /*Wrapping*/ get wrapS;
+  external set wrapS(int /*Wrapping*/ v);
+  external int /*Wrapping*/ get wrapT;
+  external set wrapT(int /*Wrapping*/ v);
+  external int /*TextureFilter*/ get magFilter;
+  external set magFilter(int /*TextureFilter*/ v);
+  external int /*TextureFilter*/ get minFilter;
+  external set minFilter(int /*TextureFilter*/ v);
   external num get anisotropy;
   external set anisotropy(num v);
   external Vector2 get offset;
@@ -4156,10 +4180,10 @@ class WebGLShadowMapInstance {
   external set autoUpdate(bool v);
   external bool get needsUpdate;
   external set needsUpdate(bool v);
-  external ShadowMapType get type;
-  external set type(ShadowMapType v);
-  external CullFace get cullFace;
-  external set cullFace(CullFace v);
+  external int /*ShadowMapType*/ get type;
+  external set type(int /*ShadowMapType*/ v);
+  external int /*CullFace*/ get cullFace;
+  external set cullFace(int /*CullFace*/ v);
   external void render(Scene scene);
 }
 
@@ -4259,7 +4283,7 @@ class IFog {
 }
 
 @JS()
-class Fog {
+class Fog implements IFog {
   external factory Fog([num hex, num near, num far]);
 
   external String get name;
@@ -4294,6 +4318,8 @@ class FogExp2 implements IFog{
 class Scene extends Object3D {
   external factory Scene();
 
+  external void add(Object3D object);
+
   external IFog get fog;
   external set fog(IFog v);
 
@@ -4301,20 +4327,20 @@ class Scene extends Object3D {
   external set overrideMaterial(Material v);
   external bool get autoUpdate;
   external set autoUpdate(bool v);
-  external Scene copy(Scene source);
+  external Scene copy(Scene source, [bool recursive]);
 }
 
 @JS()
 class CanvasTexture extends Texture {
   external factory CanvasTexture(
       dynamic canvas,
-      Mapping mapping,
-      Wrapping wrapS,
-      Wrapping wrapT,
-      TextureFilter magFilter,
-      TextureFilter minFilter,
-      PixelFormat format,
-      TextureDataType type,
+      int /*Mapping*/ mapping,
+      int /*Wrapping*/ wrapS,
+      int /*Wrapping*/ wrapT,
+      int /*TextureFilter*/ magFilter,
+      int /*TextureFilter*/ minFilter,
+      int /*PixelFormat*/ format,
+      int /*TextureDataType*/ type,
       num anisotropy);
 
   external bool get needsUpdate;
@@ -4327,13 +4353,13 @@ class CompressedTexture extends Texture {
       List<ImageData> mipmaps,
       num width,
       num height,
-      PixelFormat format,
-      TextureDataType type,
-      Mapping mapping,
-      Wrapping wrapS,
-      Wrapping wrapT,
-      TextureFilter magFilter,
-      TextureFilter minFilter,
+      int /*PixelFormat*/ format,
+      int /*TextureDataType*/ type,
+      int /*Mapping*/ mapping,
+      int /*Wrapping*/ wrapS,
+      int /*Wrapping*/ wrapT,
+      int /*TextureFilter*/ magFilter,
+      int /*TextureFilter*/ minFilter,
       num anisotropy);
 
   /*         image # width: external nu get m;
@@ -4351,13 +4377,13 @@ class CompressedTexture extends Texture {
 class CubeTexture extends Texture {
   external factory CubeTexture(
       List<dynamic> images,
-      Mapping mapping,
-      Wrapping wrapS,
-      Wrapping wrapT,
-      TextureFilter magFilter,
-      TextureFilter minFilter,
-      PixelFormat format,
-      TextureDataType type,
+      int /*Mapping*/ mapping,
+      int /*Wrapping*/ wrapS,
+      int /*Wrapping*/ wrapT,
+      int /*TextureFilter*/ magFilter,
+      int /*TextureFilter*/ minFilter,
+      int /*PixelFormat*/ format,
+      int /*TextureDataType*/ type,
       num anisotropy);
 
   external List<dynamic> get images;
@@ -4371,23 +4397,23 @@ class DataTexture extends Texture {
       ImageData data,
       num width,
       num height,
-      PixelFormat format,
-      TextureDataType type,
-      Mapping mapping,
-      Wrapping wrapS,
-      Wrapping wrapT,
-      TextureFilter magFilter,
-      TextureFilter minFilter,
+      int /*PixelFormat*/ format,
+      int /*TextureDataType*/ type,
+      int /*Mapping*/ mapping,
+      int /*Wrapping*/ wrapS,
+      int /*Wrapping*/ wrapT,
+      int /*TextureFilter*/ magFilter,
+      int /*TextureFilter*/ minFilter,
       num anisotropy);
 
   /*         image # data: external ImageDat get a;
 		external set a(ImageDat v); width: external nu get m;
 		external set m(nu v); height: external nu get m;
 		external set m(nu v); # ; */
-  external TextureFilter get magFilter;
-  external set magFilter(TextureFilter v);
-  external TextureFilter get minFilter;
-  external set minFilter(TextureFilter v);
+  external int /*TextureFilter*/ get magFilter;
+  external set magFilter(int /*TextureFilter*/ v);
+  external int /*TextureFilter*/ get minFilter;
+  external set minFilter(int /*TextureFilter*/ v);
   external bool get flipY;
   external set flipY(bool v);
   external bool get generateMipmaps;
@@ -4398,13 +4424,13 @@ class DataTexture extends Texture {
 class Texture {
   external factory Texture(
       dynamic image,
-      Mapping mapping,
-      Wrapping wrapS,
-      Wrapping wrapT,
-      TextureFilter magFilter,
-      TextureFilter minFilter,
-      PixelFormat format,
-      TextureDataType type,
+      int /*Mapping*/ mapping,
+      int /*Wrapping*/ wrapS,
+      int /*Wrapping*/ wrapT,
+      int /*TextureFilter*/ magFilter,
+      int /*TextureFilter*/ minFilter,
+      int /*PixelFormat*/ format,
+      int /*TextureDataType*/ type,
       num anisotropy);
 
   external num get id;
@@ -4419,22 +4445,22 @@ class Texture {
   external set image(dynamic v);
   external List<ImageData> get mipmaps;
   external set mipmaps(List<ImageData> v);
-  external Mapping get mapping;
-  external set mapping(Mapping v);
-  external Wrapping get wrapS;
-  external set wrapS(Wrapping v);
-  external Wrapping get wrapT;
-  external set wrapT(Wrapping v);
-  external TextureFilter get magFilter;
-  external set magFilter(TextureFilter v);
-  external TextureFilter get minFilter;
-  external set minFilter(TextureFilter v);
+  external int /*Mapping*/ get mapping;
+  external set mapping(int /*Mapping*/ v);
+  external int /*Wrapping*/ get wrapS;
+  external set wrapS(int /*Wrapping*/ v);
+  external int /*Wrapping*/ get wrapT;
+  external set wrapT(int /*Wrapping*/ v);
+  external int /*TextureFilter*/ get magFilter;
+  external set magFilter(int /*TextureFilter*/ v);
+  external int /*TextureFilter*/ get minFilter;
+  external set minFilter(int /*TextureFilter*/ v);
   external num get anisotropy;
   external set anisotropy(num v);
-  external PixelFormat get format;
-  external set format(PixelFormat v);
-  external TextureDataType get type;
-  external set type(TextureDataType v);
+  external int /*PixelFormat*/ get format;
+  external set format(int /*PixelFormat*/ v);
+  external int /*TextureDataType*/ get type;
+  external set type(int /*TextureDataType*/ v);
   external Vector2 get offset;
   external set offset(Vector2 v);
   external Vector2 get repeat;
@@ -4456,7 +4482,7 @@ class Texture {
   external static dynamic get DEFAULT_IMAGE;
   external static dynamic get DEFAULT_MAPPING;
   external Texture clone();
-  external Texture copy(Texture source);
+  external Texture copy(covariant Texture source);
   external dynamic toJSON(dynamic meta);
   external void dispose();
   external void transformUv(Vector uv);
@@ -4474,13 +4500,13 @@ class Texture {
 class VideoTexture extends Texture {
   external factory VideoTexture(
       VideoElement video,
-      Mapping mapping,
-      Wrapping wrapS,
-      Wrapping wrapT,
-      TextureFilter magFilter,
-      TextureFilter minFilter,
-      PixelFormat format,
-      TextureDataType type,
+      int /*Mapping*/ mapping,
+      int /*Wrapping*/ wrapS,
+      int /*Wrapping*/ wrapT,
+      int /*TextureFilter*/ magFilter,
+      int /*TextureFilter*/ minFilter,
+      int /*PixelFormat*/ format,
+      int /*TextureDataType*/ type,
       num anisotropy);
 
   external bool get generateMipmaps;
@@ -4491,16 +4517,16 @@ class VideoTexture extends Texture {
 
 @JS()
 class ImageUtils {
-  external factory ImageUtils();
+  // external factory ImageUtils();
 
-  external String get crossOrigin;
-  external set crossOrigin(String v);
-  external Texture loadTexture(String url, Mapping mapping,
-                               VoidFunc1<Texture> onLoad, VoidFunc1<String> onError);
-  external Texture loadTextureCube(List<String> array, Mapping mapping,
+  external static String get crossOrigin;
+  external static set crossOrigin(String v);
+  external static Texture loadTexture(String url, [int /*Mapping*/ mapping,
+                               VoidFunc1<Texture> onLoad, VoidFunc1<String> onError]);
+  external static Texture loadTextureCube(List<String> array, int /*Mapping*/ mapping,
                                    VoidFunc1<Texture> onLoad, VoidFunc1<String> onError);
-  external CanvasElement getNormalMap(ImageElement image, num depth);
-  external DataTexture generateDataTexture(num width, num height, Color color);
+  external static CanvasElement getNormalMap(ImageElement image, num depth);
+  external static DataTexture generateDataTexture(num width, num height, Color color);
 }
 
 @JS()
@@ -4581,13 +4607,13 @@ class AudioListener extends Object3D {
 }
 
 @JS()
-class Curve {
+class Curve<T extends Vector<T>> {
   external factory Curve();
 
   external dynamic getPoint(num t);
-  external Vector getPointAt(num u);
-  external List<Vector> getPoints(num divisions);
-  external List<Vector> getSpacedPoints(num divisions);
+  external T getPointAt(num u);
+  // external List<T> getPoints(num divisions);
+  // external List<T> getSpacedPoints(num divisions);
   external num getLength();
   external List<num> getLengths(num divisions);
   external void updateArcLengths();
@@ -4628,7 +4654,7 @@ class BoundingBox {
 }
 
 @JS()
-class CurvePath extends Curve<T> {
+class CurvePath<T extends Vector<T>> extends Curve<T> {
   external factory CurvePath();
 
   external List<Curve<T>> get curves;

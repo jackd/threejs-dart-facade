@@ -317,6 +317,7 @@ void render(num t) {
   camera.position.y += (-mouseY - camera.position.y) * .005;
   camera.lookAt(scene.position);
   renderer.render(scene, camera, null, false);
+  // renderer.render(scene, camera);
 }
 
 void helper(o, x, y, z, w, h, d, c) {
