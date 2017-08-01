@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:threejs_facade/three.dart' as THREE;
 import 'package:threejs_facade/renderers/canvas_renderer.dart';
 
-
 THREE.OrthographicCamera camera;
 THREE.Scene scene;
 CanvasRenderer renderer;
@@ -89,8 +88,8 @@ void init() {
 
   // Lights
   var ambientLight = new THREE.AmbientLight(
-    new THREE.Color((random.nextDouble() * 0x10).floor()));
-      // new THREE.AmbientLight(random.nextDouble() * 0x10);
+      new THREE.Color((random.nextDouble() * 0x10).floor()));
+  // new THREE.AmbientLight(random.nextDouble() * 0x10);
   scene.add(ambientLight);
 
   var l0 = new THREE.DirectionalLight(

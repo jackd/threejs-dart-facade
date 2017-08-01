@@ -1,5 +1,6 @@
 @JS('THREE')
 library threejs.CanvasRenderer;
+
 import 'dart:html';
 import "package:js/js.dart";
 

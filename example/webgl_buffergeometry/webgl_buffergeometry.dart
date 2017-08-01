@@ -176,7 +176,7 @@ void init() {
   scene.add(mesh);
 
   renderer = new WebGLRenderer();
-    // ..antialias = false;
+  // ..antialias = false;
   renderer.setClearColor(scene.fog.color);
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);

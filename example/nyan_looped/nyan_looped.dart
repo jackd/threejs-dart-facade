@@ -55,7 +55,8 @@ void init() {
   container = new DivElement();
   document.body.children.add(container);
 
-  camera = new PerspectiveCamera(45.0, window.innerWidth / window.innerHeight, 0.1, 10000.0);
+  camera = new PerspectiveCamera(
+      45.0, window.innerWidth / window.innerHeight, 0.1, 10000.0);
   camera.position.z = 30.0;
   camera.position.x = 0.0;
   camera.position.y = 0.0;
@@ -232,7 +233,9 @@ void render(num t) {
     deltaSum = deltaSum % .07;
     frame = (frame + 1) % 12;
     for (var c = 0; c < numStars; c++) {
-      var tempX = stars[5][c].position.x, tempY = stars[5][c].position.y, tempZ = stars[5][c].position.z;
+      var tempX = stars[5][c].position.x,
+          tempY = stars[5][c].position.y,
+          tempZ = stars[5][c].position.z;
       for (var state = 5; state > 0; state--) {
         var star = stars[state][c];
         var star2 = stars[state - 1][c];
@@ -321,9 +324,11 @@ void render(num t) {
 }
 
 void helper(o, x, y, z, w, h, d, c) {
-  MeshLambertMaterialParameters mat = new MeshLambertMaterialParameters()..color = c;
+  MeshLambertMaterialParameters mat = new MeshLambertMaterialParameters()
+    ..color = c;
   var material = new MeshLambertMaterial(mat);
-  var geometry = new BoxGeometry(w.toDouble(), h.toDouble(), d.toDouble(), 1, 1, 1);
+  var geometry =
+      new BoxGeometry(w.toDouble(), h.toDouble(), d.toDouble(), 1, 1, 1);
   var mesh = new Mesh(geometry, material);
   mesh.position.x = x.toDouble() + (w.toDouble() / 2.0);
   mesh.position.y = y.toDouble() - (h.toDouble() / 2.0);

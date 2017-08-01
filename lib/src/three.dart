@@ -247,7 +247,7 @@ class AnimationMixer {
       NumberKeyframeTrack endTimeScale,
       num duration);
   external AnimationMixer crossFade(AnimationAction fadeOutAction,
-                                    AnimationAction fadeInAction, num duration, bool warp);
+      AnimationAction fadeInAction, num duration, bool warp);
   external AnimationMixer update(num deltaTime);
 }
 
@@ -606,7 +606,7 @@ class BufferGeometry extends Geometry {
   external void setIndex(BufferAttribute index);
 
   /** Deprecated. This overloaded method is deprecated. */ external void
-  addAttribute(String name, dynamic attribute);
+      addAttribute(String name, dynamic attribute);
   external dynamic getAttribute(String name);
   external void removeAttribute(String name);
 
@@ -975,7 +975,7 @@ class InstancedBufferGeometry extends BufferGeometry {
   external factory InstancedBufferGeometry();
 
   /*         groups #num start , num count , instances:num# []; */ external void
-  addGroup(num start, num count, num instances);
+      addGroup(num start, num count, num instances);
   external InstancedBufferGeometry clone();
   external InstancedBufferGeometry copy(InstancedBufferGeometry source);
 }
@@ -1448,7 +1448,7 @@ class BinaryTextureLoader {
   external LoadingManager get manager;
   external set manager(LoadingManager v);
   external void load(String url, VoidFunc1<DataTexture> onLoad,
-                     VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
+      VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
   external void setCrossOrigin(String crossOrigin);
 }
 
@@ -1459,7 +1459,7 @@ class BufferGeometryLoader {
   external LoadingManager get manager;
   external set manager(LoadingManager v);
   external void load(String url, VoidFunc1<BufferGeometry> onLoad,
-                     VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
+      VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
   external void setCrossOrigin(String crossOrigin);
   external BufferGeometry parse(dynamic json);
 }
@@ -1485,7 +1485,7 @@ class CompressedTextureLoader {
   external LoadingManager get manager;
   external set manager(LoadingManager v);
   external void load(String url, VoidFunc1<CompressedTexture> onLoad,
-                     VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
+      VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
   external void setCrossOrigin(String crossOrigin);
 }
 
@@ -1496,7 +1496,7 @@ class CubeTextureLoader {
   external LoadingManager get manager;
   external set manager(LoadingManager v);
   external void load(List<String> urls, VoidFunc1<CubeTexture> onLoad,
-                     VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
+      VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
   external void setCrossOrigin(String crossOrigin);
 }
 
@@ -1511,7 +1511,7 @@ class ImageLoader {
   external String get crossOrigin;
   external set crossOrigin(String v);
   external ImageElement load(String url, VoidFunc1<ImageElement> onLoad,
-                             VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
+      VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
   external void setCrossOrigin(String crossOrigin);
 }
 
@@ -1524,7 +1524,7 @@ class JSONLoader extends Loader {
   external bool get withCredentials;
   external set withCredentials(bool v);
   external void load(String url, VoidFunc2<Geometry, List<Material>> onLoad,
-                     VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
+      VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError);
   external void setCrossOrigin(String crossOrigin);
   external void setTexturePath(String value);
 /*         parse(dynamic json , String texturePath ) # geometry: external Geometr get y;
@@ -1614,8 +1614,10 @@ class XHRLoader {
   external set responseType(String v);
   external String get crossOrigin;
   external set crossOrigin(String v);
-  external dynamic load(String url, [VoidFunc1<String> onLoad,
-                        VoidFunc1<dynamic> onProgress, VoidFunc1<dynamic> onError]);
+  external dynamic load(String url,
+      [VoidFunc1<String> onLoad,
+      VoidFunc1<dynamic> onProgress,
+      VoidFunc1<dynamic> onError]);
   external void setResponseType(String responseType);
   external void setCrossOrigin(String crossOrigin);
   external void setWithCredentials(String withCredentials);
@@ -2810,7 +2812,7 @@ class Matrix3 {
   external List get elements;
   external set elements(List v);
   external Matrix3 set(num n11, num n12, num n13, num n21, num n22, num n23,
-                       num n31, num n32, num n33);
+      num n31, num n32, num n33);
   external Matrix3 identity();
   external Matrix3 clone();
   external Matrix3 copy(Matrix3 m);
@@ -2995,7 +2997,7 @@ class Ray {
   external num distanceToPoint(Vector3 point);
   external num distanceSqToPoint(Vector3 point);
   external num distanceSqToSegment(Vector3 v0, Vector3 v1,
-                                   Vector3 optionalPointOnRay, Vector3 optionalPointOnSegment);
+      Vector3 optionalPointOnRay, Vector3 optionalPointOnSegment);
   external bool isIntersectionSphere(Sphere sphere);
   external Vector3 intersectSphere(Sphere sphere, Vector3 optionalTarget);
   external bool isIntersectionPlane(Plane plane);
@@ -3004,7 +3006,7 @@ class Ray {
   external bool isIntersectionBox(Box3 box);
   external Vector3 intersectBox(Box3 box, Vector3 optionalTarget);
   external Vector3 intersectTriangle(Vector3 a, Vector3 b, Vector3 c,
-                                     bool backfaceCulling, Vector3 optionalTarget);
+      bool backfaceCulling, Vector3 optionalTarget);
   external Ray applyMatrix4(Matrix4 matrix4);
   external bool equals(Ray ray);
 }
@@ -3370,8 +3372,8 @@ class LensFlare extends Object3D {
   external Vector3 get positionScreen;
   external set positionScreen(Vector3 v);
   external void customUpdateCallback(LensFlare object);
-  external void add(
-      Texture texture, num size, num distance, int /*Blending*/ blending, Color color);
+  external void add(Texture texture, num size, num distance,
+      int /*Blending*/ blending, Color color);
   external void updateLensFlares();
   external LensFlare clone([bool recursive]);
   external LensFlare copy(LensFlare source, [bool recursive]);
@@ -3392,7 +3394,8 @@ class Line extends Object3D {
 
 @JS()
 class LineSegments extends Line {
-  external factory LineSegments(Geometry geometry, Material material, [num mode]);
+  external factory LineSegments(Geometry geometry, Material material,
+      [num mode]);
 
   external LineSegments clone([bool recursive]);
   external LineSegments copy(LineSegments source, [bool recursive]);
@@ -3540,16 +3543,16 @@ class WebGLRendererParameters {
 }
 
 @JS()
-class WebGLRenderingContext{}
+class WebGLRenderingContext {}
 
 @JS()
-class AudioBufferSourceNode{}
+class AudioBufferSourceNode {}
 
 @JS()
-class GainNode{}
+class GainNode {}
 
 @JS()
-class PannerNode{}
+class PannerNode {}
 
 @JS()
 class WebGLRenderer {
@@ -3622,7 +3625,7 @@ class WebGLRenderer {
 
   @deprecated
   /** Deprecated, use capabilities instead */ external bool
-  supportsVertexTextures();
+      supportsVertexTextures();
   external bool supportsFloatTextures();
   external bool supportsStandardDerivatives();
   external bool supportsCompressedTextureS3TC();
@@ -3657,24 +3660,28 @@ class WebGLRenderer {
   external void renderBufferImmediate(
       Object3D object, Object program, Material material);
   external void renderBufferDirect(Camera camera, List<Light> lights, Fog fog,
-                                   Material material, dynamic geometryGroup, Object3D object);
+      Material material, dynamic geometryGroup, Object3D object);
   external void renderBuffer(Camera camera, List<Light> lights, Fog fog,
-                             Material material, dynamic geometryGroup, Object3D object);
-  external void render(
-      Scene scene, Camera camera, [RenderTarget renderTarget, bool forceClear]);
+      Material material, dynamic geometryGroup, Object3D object);
+  external void render(Scene scene, Camera camera,
+      [RenderTarget renderTarget, bool forceClear]);
   external void renderImmediateObject(Camera camera, List<Light> lights,
-                                      Fog fog, Material material, Object3D object);
-  external void setFaceCulling(int /*CullFace*/ cullFace, int /*FrontFaceDirection*/ frontFace);
+      Fog fog, Material material, Object3D object);
+  external void setFaceCulling(
+      int /*CullFace*/ cullFace, int /*FrontFaceDirection*/ frontFace);
   external void setMaterialFaces(Material material);
   external void setDepthTest(bool depthTest);
   external void setDepthWrite(bool depthWrite);
-  external void setBlending(int /*Blending*/ blending, int /*BlendingEquation*/ blendEquation,
-                            int /*BlendingSrcFactor*/ blendSrc, int /*BlendingDstFactor*/ blendDst);
+  external void setBlending(
+      int /*Blending*/ blending,
+      int /*BlendingEquation*/ blendEquation,
+      int /*BlendingSrcFactor*/ blendSrc,
+      int /*BlendingDstFactor*/ blendDst);
   external void uploadTexture(Texture texture);
   external void setTexture(Texture texture, num slot);
   external void setRenderTarget(RenderTarget renderTarget);
   external void readRenderTargetPixels(RenderTarget renderTarget, num x, num y,
-                                       num width, num height, dynamic buffer);
+      num width, num height, dynamic buffer);
 }
 
 @JS()
@@ -4301,7 +4308,7 @@ class Fog implements IFog {
 }
 
 @JS()
-class FogExp2 implements IFog{
+class FogExp2 implements IFog {
   external factory FogExp2([dynamic hex, num density]);
 
   external String get name;
@@ -4521,12 +4528,18 @@ class ImageUtils {
 
   external static String get crossOrigin;
   external static set crossOrigin(String v);
-  external static Texture loadTexture(String url, [int /*Mapping*/ mapping,
-                               VoidFunc1<Texture> onLoad, VoidFunc1<String> onError]);
-  external static Texture loadTextureCube(List<String> array, int /*Mapping*/ mapping,
-                                   VoidFunc1<Texture> onLoad, VoidFunc1<String> onError);
+  external static Texture loadTexture(String url,
+      [int /*Mapping*/ mapping,
+      VoidFunc1<Texture> onLoad,
+      VoidFunc1<String> onError]);
+  external static Texture loadTextureCube(
+      List<String> array,
+      int /*Mapping*/ mapping,
+      VoidFunc1<Texture> onLoad,
+      VoidFunc1<String> onError);
   external static CanvasElement getNormalMap(ImageElement image, num depth);
-  external static DataTexture generateDataTexture(num width, num height, Color color);
+  external static DataTexture generateDataTexture(
+      num width, num height, Color color);
 }
 
 @JS()
@@ -4706,13 +4719,13 @@ class Path extends CurvePath<Vector2> {
       num aCP1x, num aCP1y, num aCP2x, num aCP2y, num aX, num aY);
   external void splineThru(List<Vector2> pts);
   external void arc(num aX, num aY, num aRadius, num aStartAngle, num aEndAngle,
-                    bool aClockwise);
+      bool aClockwise);
   external void absarc(num aX, num aY, num aRadius, num aStartAngle,
-                       num aEndAngle, bool aClockwise);
+      num aEndAngle, bool aClockwise);
   external void ellipse(num aX, num aY, num xRadius, num yRadius,
-                        num aStartAngle, num aEndAngle, bool aClockwise, num aRotation);
+      num aStartAngle, num aEndAngle, bool aClockwise, num aRotation);
   external void absellipse(num aX, num aY, num xRadius, num yRadius,
-                           num aStartAngle, num aEndAngle, bool aClockwise, num aRotation);
+      num aStartAngle, num aEndAngle, bool aClockwise, num aRotation);
   external List<Vector2> getSpacedPoints(num divisions, bool closedPath);
   external List<Vector2> getPoints(num divisions, bool closedPath);
   external List<Shape> toShapes();
@@ -5185,7 +5198,7 @@ class CameraHelper extends LineSegments {
   external Camera get camera;
   external set camera(Camera v);
 /*         pointMap # [id: String]: external List<num get >; # ; */ external void
-  update();
+      update();
 }
 
 @JS()
