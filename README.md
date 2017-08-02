@@ -12,20 +12,14 @@ The library will only be lightly maintained.
 
 Add a dependency in your pubspec.yaml
 
-    # dependencies:
-    #   threejs_facade:
-    #     git: https://github.com/blockforest/threejs-dart-facade
+---
+dependencies:
+  threejs_facade:
+    git: https://github.com/jackd/threejs-dart-facade.git
+---
 
 # Example
 
 Clone this project to run the example scene
 
     $> pub serve example
-
-Or view [here](http://rockdot.sounddesignz.com/dart/threejs-interop).
-
-## Issues and bugs
-
-Please file reports on the
-[GitHub Issue Tracker](https://github.com/blockforest/threejs-dart-facade/issues).
-
