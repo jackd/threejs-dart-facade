@@ -620,7 +620,7 @@ class BufferGeometry extends Geometry {
   /** Deprecated. Use addGroup */ external void addDrawCall(
       num start, num count, num index);
   /** Deprecated. */ external void clearDrawCalls();
-  external void addGroup(num start, num count, num materialIndex);
+  external void addGroup(num start, num count, [num materialIndex]);
   external void clearGroups();
   external void setDrawRange(num start, num count);
   external void applyMatrix(Matrix4 matrix);
@@ -975,7 +975,7 @@ class InstancedBufferGeometry extends BufferGeometry {
   external factory InstancedBufferGeometry();
 
   /*         groups #num start , num count , instances:num# []; */ external void
-      addGroup(num start, num count, num instances);
+      addGroup(num start, num count, [num instances]);
   external InstancedBufferGeometry clone();
   external InstancedBufferGeometry copy(InstancedBufferGeometry source);
 }
@@ -1165,7 +1165,7 @@ class Object3D {
   external void traverseVisible(VoidFunc1<Object3D> callback);
   external void traverseAncestors(VoidFunc1<Object3D> callback);
   external void updateMatrix();
-  external void updateMatrixWorld(bool force);
+  external void updateMatrixWorld([bool force]);
   external dynamic toJSON(dynamic meta);
   external Object3D clone(bool recursive);
   external Object3D copy(covariant Object3D source, bool recursive);
@@ -1200,6 +1200,7 @@ class Intersection {
 }
 
 @JS()
+@anonymous
 class RaycasterParameters {
   external factory RaycasterParameters();
 
@@ -1209,10 +1210,18 @@ class RaycasterParameters {
   external set Line(dynamic v);
   external dynamic get LOD;
   external set LOD(dynamic v);
-  external dynamic get Points;
-  external set Points(dynamic v);
+  external RaycasterPointParameters get Points;
+  external set Points(RaycasterPointParameters v);
   external dynamic get Sprite;
   external set Sprite(dynamic v);
+}
+
+@JS()
+@anonymous
+class RaycasterPointParameters {
+  external factory RaycasterPointParameters();
+  external num get threshold;
+  external void set threshold(num threshold);
 }
 
 @JS()
@@ -1239,7 +1248,8 @@ class Raycaster {
 		external set d(voi v); */
   external List<Intersection> intersectObject(Object3D object, bool recursive);
   external List<Intersection> intersectObjects(
-      List<Object3D> objects, bool recursive);
+      List<Object3D> objects, [bool recursive]);
+  external void setFromCamera(Vector2 coords, Camera camera);
 }
 
 @JS()
@@ -1624,6 +1634,7 @@ class XHRLoader {
 }
 
 @JS()
+@anonymous
 class MaterialParameters {
   external factory MaterialParameters();
 
@@ -1758,6 +1769,7 @@ class Material {
 }
 
 @JS()
+@anonymous
 class LineBasicMaterialParameters extends MaterialParameters {
   external factory LineBasicMaterialParameters();
 
@@ -1796,6 +1808,7 @@ class LineBasicMaterial extends Material {
 }
 
 @JS()
+@anonymous
 class LineDashedMaterialParameters extends MaterialParameters {
   external factory LineDashedMaterialParameters();
 
@@ -1839,6 +1852,7 @@ class LineDashedMaterial extends Material {
 }
 
 @JS()
+@anonymous
 class MeshBasicMaterialParameters extends MaterialParameters {
   external factory MeshBasicMaterialParameters();
 
@@ -1933,6 +1947,7 @@ class MeshBasicMaterial extends Material {
 }
 
 @JS()
+@anonymous
 class MeshDepthMaterialParameters extends MaterialParameters {
   external factory MeshDepthMaterialParameters();
 
@@ -1954,8 +1969,8 @@ class MeshDepthMaterial extends Material {
   external MeshDepthMaterial copy(MeshDepthMaterial source);
 }
 
-@anonymous
 @JS()
+@anonymous
 class MeshLambertMaterialParameters extends MaterialParameters {
   external factory MeshLambertMaterialParameters();
 
@@ -2041,6 +2056,7 @@ class MeshLambertMaterial extends Material {
 }
 
 @JS()
+@anonymous
 class MeshNormalMaterialParameters extends MaterialParameters {
   external factory MeshNormalMaterialParameters();
 
@@ -2079,6 +2095,7 @@ class MeshNormalMaterial extends Material {
 }
 
 @JS()
+@anonymous
 class MeshPhongMaterialParameters extends MaterialParameters {
   external factory MeshPhongMaterialParameters();
 
@@ -2249,6 +2266,7 @@ class MeshFaceMaterial extends MultiMaterial {
 }
 
 @JS()
+@anonymous
 class PointsMaterialParameters extends MaterialParameters {
   external factory PointsMaterialParameters();
 
@@ -2300,6 +2318,7 @@ class RawShaderMaterial extends ShaderMaterial {
 }
 
 @JS()
+@anonymous
 class ShaderMaterialParameters extends MaterialParameters {
   external factory ShaderMaterialParameters();
 
@@ -2381,6 +2400,7 @@ class ShaderMaterial extends Material {
 }
 
 @JS()
+@anonymous
 class SpriteMaterialParameters extends MaterialParameters {
   external factory SpriteMaterialParameters();
 
@@ -3473,7 +3493,7 @@ class SkinnedMesh extends Mesh {
   external void bind(Skeleton skeleton, Matrix4 bindMatrix);
   external void pose();
   external void normalizeSkinWeights();
-  external void updateMatrixWorld(bool force);
+  external void updateMatrixWorld([bool force]);
   external SkinnedMesh clone([bool recursive]);
   external SkinnedMesh copy(SkinnedMesh source, [bool recursive]);
 
@@ -3502,9 +3522,13 @@ class Renderer {
   external void setSize(num width, num height, [bool updateStyle]);
   external Element get domElement;
   external set domElement(covariant Element v);
+
+  external void setClearColor(Color color, [num alpha]);
+  external void setPixelRatio(num value);
 }
 
 @JS()
+@anonymous
 class WebGLRendererParameters {
   external factory WebGLRendererParameters();
 
@@ -3555,7 +3579,7 @@ class GainNode {}
 class PannerNode {}
 
 @JS()
-class WebGLRenderer {
+class WebGLRenderer implements Renderer {
   external factory WebGLRenderer([WebGLRendererParameters parameters]);
 
   external CanvasElement get domElement;
@@ -4605,7 +4629,7 @@ class Audio extends Object3D {
   external num getRolloffFactor();
   external void setVolume(num value);
   external num getVolume();
-  external void updateMatrixWorld(bool force);
+  external void updateMatrixWorld([bool force]);
 }
 
 @JS()
@@ -4616,7 +4640,7 @@ class AudioListener extends Object3D {
   external set type(String v);
   external AudioContext get context;
   external set context(AudioContext v);
-  external void updateMatrixWorld(bool force);
+  external void updateMatrixWorld([bool force]);
 }
 
 @JS()
@@ -5234,13 +5258,36 @@ class FaceNormalsHelper extends LineSegments {
 
 @JS()
 class GridHelper extends LineSegments {
-  external factory GridHelper([num size, num step]);
+  external factory GridHelper([num size, int divisions, Color color1, Color color2]);
 
   external Color get color1;
   external set color1(Color v);
   external Color get color2;
   external set color2(Color v);
   external void setColors(num colorCenterLine, num colorGrid);
+}
+
+@JS()
+class PolarGridHelper extends LineSegments {
+  external factory PolarGridHelper([num radius, int radials, int circles, int divisions, Color color1, Color color2]);
+
+  external num get radius;
+  external void set radius(num radius);
+
+  external int get radials;
+  external void set radials(int radials);
+
+  external int get circles;
+  external void set circles(int circles);
+
+  external int get divisions;
+  external void set divisions(int divisions);
+
+  external Color get color1;
+  external void set color1(Color color1);
+
+  external Color get color2;
+  external void set color2(Color color2);
 }
 
 @JS()

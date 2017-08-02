@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:js/js.dart';
 import 'package:threejs_facade/three.dart';
 import 'package:threejs_facade/controls/trackball_controls.dart';
+import 'package:threejs_facade/renderers/canvas_renderer.dart';
 
 /*
 	Three.js "tutorials by example"
@@ -17,47 +18,27 @@ void main() {
   animate(null);
 }
 
-// MAIN
-
-// standard global variables
-// var container, scene, camera, renderer, controls, stats;
-
-// var keyboard = new .KeyboardState();
-// var clock = new Clock();
-
 Scene scene;
 PerspectiveCamera camera;
-WebGLRenderer renderer;
+Renderer renderer;
 TrackballControls controls;
+const webgl = true;
+// const webgl = false; // issues
 
-// custom global variables
-// var gui, gui_zText,
-// 	gui_xMin, gui_xMax, gui_yMin, gui_yMax,
-// 	gui_a, gui_b, gui_c, gui_d,
-// 	gui_segments;
-
-// var zFuncText = "x^2 - y^2";
-// var zFunc = Parser.parse(zFuncText).toJSFunction( ['x','y'] );
-num zFunc(num x, num y) {
-  // parameters for the equations
-  var a = 1;
-  var b = 1;
-  // var c = 0.01;
-  // var d = 0.01;
-  return math.sin(math.sqrt(a * math.pow(x, 2) + b * math.pow(y, 2)));
-}
+num zFunc(num x, num y) => math.sin(math.sqrt(math.pow(x, 2) + math.pow(y, 2)));
 
 // var meshFunction;
-var segments = 20,
-    xMin = -10,
-    xMax = 10,
-    xRange = xMax - xMin,
-    yMin = -10,
-    yMax = 10,
-    yRange = yMax - yMin,
-    zMin = -10,
-    zMax = 10,
-    zRange = zMax - zMin;
+var segments = 400;
+var xMin = -10;
+var xMax = 10;
+var yMin = -10;
+var yMax = 10;
+var zMin = -10;
+var zMax = 10;
+
+var xRange = xMax - xMin;
+var yRange = yMax - yMin;
+var zRange = zMax - zMin;
 
 // ParametricGeometry graphGeometry;
 // var gridMaterial;
@@ -71,69 +52,68 @@ void onWindowResize(_) {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-void onKeyPress(KeyboardEvent event) {}
-
-// FUNCTIONS
 void init() {
-  // SCENE
   container = querySelector('#container');
   scene = new Scene();
-  // CAMERA
-  var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
-  var VIEW_ANGLE = 45,
-      ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT,
-      NEAR = 0.1,
-      FAR = 20000;
-  camera = new PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+  var width = container.clientWidth;
+  var height = container.clientHeight;
+  var viewAngle = 45;
+  var near = 0.1;
+  var far = 2000;
+  var aspect = width / height;
+  camera = new PerspectiveCamera(viewAngle, aspect, near, far);
   scene.add(camera);
   camera.position.set(0, 150, 400);
   camera.lookAt(scene.position);
-  // RENDERER
-  // if ( Detector.webgl )
-  // 	renderer = new WebGLRenderer()
-  // 		..antialias = true;
-  // else
-  // 	renderer = new CanvasRenderer();
-  renderer = new WebGLRenderer();
-  renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-  container.append(renderer.domElement);
-  // EVENTS
-  window.onResize.listen(onWindowResize);
-  window.onKeyPress.listen(onKeyPress);
 
-  // CONTROLS
+  // renderer
+  if (webgl) {
+  	renderer = new WebGLRenderer(
+      new WebGLRendererParameters()..antialias=true);
+  } else {
+  	renderer = new CanvasRenderer();
+  }
+  renderer.setSize(width, height);
+
+  container.append(renderer.domElement);
+  // events
+  window.onResize.listen(onWindowResize);
+
+  // controls
   controls = new TrackballControls(camera, renderer.domElement);
-  // STATS
-  // stats = new Stats();
-  // stats.domElement.style.position = 'absolute';
-  // stats.domElement.style.bottom = '0px';
-  // stats.domElement.style.zIndex = 100;
-  // container.appendChild( stats.domElement );
-  // LIGHT
+
+  // light
   var light = new PointLight(new Color(0xffffff));
   light.position.set(0, 250, 0);
   scene.add(light);
-  // SKYBOX/FOG
-  // scene.fog = new FogExp2( 0x888888, 0.00025 );
+  // fog
+  scene.fog = new FogExp2( 0x888888, 0.025 );
 
   ////////////
   // CUSTOM //
   ////////////
 
-  scene.add(new AxisHelper());
+  // scene.add(new AxisHelper());
 
   // wireframe for xy-plane
-  var wireframeMaterial = new MeshBasicMaterial()
-    ..color = new Color(0x000088)
-    ..wireframe = true
-    ..side = DoubleSide;
+  // var wireframeMaterial = new MeshBasicMaterial()
+  //   ..color = new Color(0x000088)
+  //   ..wireframe = true
+  //   ..side = DoubleSide;
 
-  var floorGeometry = new PlaneGeometry(1000, 1000, 10, 10);
-  var floor = new Mesh(floorGeometry, wireframeMaterial);
-  floor.position.z = -0.01;
+  // var floorGeometry = new PlaneGeometry(100, 100, 100, 100);
+  // var floor = new Mesh(floorGeometry, wireframeMaterial);
+  // floor.position.z = 0;
   // rotate to lie in x-y plane
   // floor.rotation.x = Math.PI / 2;
-  scene.add(floor);
+  // scene.add(floor);
+  // var grid = new GridHelper(20, 20, new Color(0x000088), new Color(0xff0000));
+  // grid.rotation.x = math.PI/2;
+  // scene.add(grid);
+
+  var polarGrid = new PolarGridHelper(10, 20, 20, 100, new Color(0x000088), new Color(0xff0000));
+  polarGrid.rotation.x = math.PI/2;
+  scene.add(polarGrid);
 
   // shadeMaterial = new MeshLambertMaterial()
   // 	..color = new Color(0xff0000);
@@ -204,9 +184,9 @@ void init() {
 Vector3 meshFunction(num x, num y, [dynamic other]) {
   x = xRange * x + xMin;
   y = yRange * y + yMin;
-  var z = zFunc(x, y); //= Math.cos(x) * Math.sqrt(y);
+  var z = zFunc(x, y);
   if (z.isNaN)
-    return new Vector3(0, 0, 0); // TODO: better fix
+    return new Vector3(0, 0, 0);
   else
     return new Vector3(x, y, z);
 }

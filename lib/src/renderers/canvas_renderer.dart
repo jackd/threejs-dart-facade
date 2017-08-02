@@ -10,7 +10,7 @@ import "package:threejs_facade/three.dart";
 class CanvasRenderer extends Renderer {
   external factory CanvasRenderer();
   external setClearColor(Color color, [num alpha]);
-  external setPixelRatio(double ratio);
+  external setPixelRatio(num ratio);
   external CanvasElement get domElement;
   external set domElement(CanvasElement v);
   external render(Scene scene, Camera camera);
