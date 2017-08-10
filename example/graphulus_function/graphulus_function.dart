@@ -62,9 +62,11 @@ void init() {
   var far = 2000;
   var aspect = width / height;
   camera = new PerspectiveCamera(viewAngle, aspect, near, far);
-  scene.add(camera);
-  camera.position.set(0, 150, 400);
+  camera.up = new Vector3(0, 0, 1);
   camera.lookAt(scene.position);
+  scene.add(camera);
+  // camera.position.set(0, 150, 400);
+  // camera.lookAt(scene.position);
 
   // renderer
   if (webgl) {
@@ -87,13 +89,13 @@ void init() {
   light.position.set(0, 250, 0);
   scene.add(light);
   // fog
-  scene.fog = new FogExp2( 0x888888, 0.025 );
+  // scene.fog = new FogExp2( 0x888888, 0.025 );
 
   ////////////
   // CUSTOM //
   ////////////
 
-  // scene.add(new AxisHelper());
+  scene.add(new AxisHelper());
 
   // wireframe for xy-plane
   // var wireframeMaterial = new MeshBasicMaterial()
@@ -101,12 +103,6 @@ void init() {
   //   ..wireframe = true
   //   ..side = DoubleSide;
 
-  // var floorGeometry = new PlaneGeometry(100, 100, 100, 100);
-  // var floor = new Mesh(floorGeometry, wireframeMaterial);
-  // floor.position.z = 0;
-  // rotate to lie in x-y plane
-  // floor.rotation.x = Math.PI / 2;
-  // scene.add(floor);
   // var grid = new GridHelper(20, 20, new Color(0x000088), new Color(0xff0000));
   // grid.rotation.x = math.PI/2;
   // scene.add(grid);
@@ -119,8 +115,7 @@ void init() {
   // 	..color = new Color(0xff0000);
 
   // "wireframe texture"
-  // var wireTexture = ImageUtils.loadTexture( 'images/square.png' );
-  var wireTexture = new TextureLoader().load('images/square.png');
+  var wireTexture = new TextureLoader().load('images/white.png');
   wireTexture.wrapS = wireTexture.wrapT = RepeatWrapping;
   wireTexture.repeat.set(40, 40);
 
@@ -207,41 +202,45 @@ void createGraph() {
   zMin = graphGeometry.boundingBox.min.z;
   zMax = graphGeometry.boundingBox.max.z;
   zRange = zMax - zMin;
-  var color, point, face, numberOfSides, vertexIndex;
-  // faces are indexed using characters
-  var faceIndices = ['a', 'b', 'c', 'd'];
   // first, assign colors to vertices as desired
-  // print(graphGeometry.vertices.length);
   graphGeometry.colors.length = graphGeometry.vertices.length;
   for (var i = 0; i < graphGeometry.vertices.length; i++) {
-    point = graphGeometry.vertices[i];
-    color = new Color(0x0000ff);
+    var point = graphGeometry.vertices[i];
+    var color = new Color(0x0000ff);
     color.setHSL(0.7 * (zMax - point.z) / zRange, 1, 0.5);
     graphGeometry.colors[i] = color; // use this array for convenience
   }
   // copy the colors as necessary to the face's vertexColors array.
   for (var i = 0; i < graphGeometry.faces.length; i++) {
-    face = graphGeometry.faces[i];
-    numberOfSides = (face is Face3) ? 3 : 4;
-    face.vertexColors = new List<Color>(numberOfSides);
-    for (var j = 0; j < numberOfSides; j++) {
-      var faceIndex = faceIndices[j];
-      switch (faceIndex) {
-        case 'a':
-          vertexIndex = face.a;
-          break;
-        case 'b':
-          vertexIndex = face.b;
-          break;
-        case 'c':
-          vertexIndex = face.c;
-          break;
-        case 'd':
-          vertexIndex = face.d;
-          break;
-      }
-      face.vertexColors[j] = graphGeometry.colors[vertexIndex];
-    }
+    var face = graphGeometry.faces[i];
+    face.vertexColors =
+          [face.a, face.b, face.c].map((i) => graphGeometry.colors[i]).toList();
+    // numberOfSides = (face is Face3) ? 3 : 4;
+    // face.vertexColors = new List<Color>(numberOfSides);
+    // face.vertexColors[0] = graphGeometry.colors[face.a];
+    // face.vertexColors[1] = graphGeometry.colors[face.b];
+    // face.vertexColors[2] = graphGeometry.colors[face.c];
+    // if (face is! Face3) {
+    //   face.vertexColors[3] = graphGeometry.colors[face.d];
+    // }
+    // for (var j = 0; j < numberOfSides; j++) {
+    //   var faceIndex = faceIndices[j];
+    //   switch (faceIndex) {
+    //     case 'a':
+    //       vertexIndex = face.a;
+    //       break;
+    //     case 'b':
+    //       vertexIndex = face.b;
+    //       break;
+    //     case 'c':
+    //       vertexIndex = face.c;
+    //       break;
+    //     case 'd':
+    //       vertexIndex = face.d;
+    //       break;
+    //   }
+    //   face.vertexColors[j] = graphGeometry.colors[vertexIndex];
+    // }
   }
   ///////////////////////
   // end vertex colors //
@@ -251,15 +250,14 @@ void createGraph() {
 
   if (graphMesh != null) {
     scene.remove(graphMesh);
-    // renderer.deallocateObject( graphMesh );
   }
 
   wireMaterial.map.repeat.set(segments, segments);
   wireMaterial.side = DoubleSide;
   graphMesh = new Mesh(graphGeometry, wireMaterial);
-  // graphMesh.doubleSided = true;
 
   scene.add(graphMesh);
+  camera.position.set(2 * xMax, 0.5 * yMax, 4 * zMax);
 }
 
 void preset01() {
@@ -270,7 +268,7 @@ void preset01() {
   // gui_b.setValue(1);
   // gui_segments.setValue(40);
   createGraph();
-  resetCamera();
+  // resetCamera();
 }
 
 void resetCamera() {
