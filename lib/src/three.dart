@@ -1247,8 +1247,8 @@ class Raycaster {
 		external set m(nu v);# , Camera camera ): external voi get d;
 		external set d(voi v); */
   external List<Intersection> intersectObject(Object3D object, bool recursive);
-  external List<Intersection> intersectObjects(
-      List<Object3D> objects, [bool recursive]);
+  external List<Intersection> intersectObjects(List<Object3D> objects,
+      [bool recursive]);
   external void setFromCamera(Vector2 coords, Camera camera);
 }
 
@@ -4363,16 +4363,15 @@ class Scene extends Object3D {
 
 @JS()
 class CanvasTexture extends Texture {
-  external factory CanvasTexture(
-      dynamic canvas,
-      int /*Mapping*/ mapping,
+  external factory CanvasTexture(dynamic canvas,
+      [int /*Mapping*/ mapping,
       int /*Wrapping*/ wrapS,
       int /*Wrapping*/ wrapT,
       int /*TextureFilter*/ magFilter,
       int /*TextureFilter*/ minFilter,
       int /*PixelFormat*/ format,
       int /*TextureDataType*/ type,
-      num anisotropy);
+      num anisotropy]);
 
   external bool get needsUpdate;
   external set needsUpdate(bool v);
@@ -5258,7 +5257,8 @@ class FaceNormalsHelper extends LineSegments {
 
 @JS()
 class GridHelper extends LineSegments {
-  external factory GridHelper([num size, int divisions, Color color1, Color color2]);
+  external factory GridHelper(
+      [num size, int divisions, Color color1, Color color2]);
 
   external Color get color1;
   external set color1(Color v);
@@ -5269,7 +5269,13 @@ class GridHelper extends LineSegments {
 
 @JS()
 class PolarGridHelper extends LineSegments {
-  external factory PolarGridHelper([num radius, int radials, int circles, int divisions, Color color1, Color color2]);
+  external factory PolarGridHelper(
+      [num radius,
+      int radials,
+      int circles,
+      int divisions,
+      Color color1,
+      Color color2]);
 
   external num get radius;
   external void set radius(num radius);
