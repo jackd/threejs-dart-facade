@@ -3403,8 +3403,8 @@ class LensFlare extends Object3D {
 class Line extends Object3D {
   external factory Line(dynamic geometry, dynamic material, num mode);
 
-  external dynamic get geometry;
-  external set geometry(dynamic v);
+  external Geometry get geometry;
+  external set geometry(Geometry v);
   external Material get material;
   external set material(Material v);
   external void raycast(Raycaster raycaster, dynamic intersects);
@@ -3427,8 +3427,8 @@ enum LineMode { dummy }
 class Mesh extends Object3D {
   external factory Mesh([Geometry geometry, Material material]);
 
-  external dynamic get geometry;
-  external set geometry(dynamic v);
+  external Geometry get geometry;
+  external set geometry(Geometry v);
   external Material get material;
   external set material(Material v);
   external void updateMorphTargets();
