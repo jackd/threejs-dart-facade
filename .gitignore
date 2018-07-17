@@ -8,3 +8,6 @@ build
 .buildlog
 .pub/
 .settings/
+.dart_tool/
+
+*.swp

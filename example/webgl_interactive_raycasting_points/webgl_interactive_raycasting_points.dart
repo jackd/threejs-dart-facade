@@ -7,11 +7,11 @@ Renderer renderer;
 Scene scene;
 PerspectiveCamera camera;
 
-var pointclouds;
+List<Points> pointclouds;
 Raycaster raycaster;
 var mouse = new Vector2();
 var intersection = null;
-var spheres = [];
+var spheres = <Mesh>[];
 var spheresIndex = 0;
 var clock;
 
@@ -26,7 +26,7 @@ void main() {
   animate(null);
 }
 
-BufferGeometry generatePointCloudGeometry(color, width, length) {
+BufferGeometry generatePointCloudGeometry(Color color, int width, int length) {
   var geometry = new BufferGeometry();
   var numPoints = width * length;
 
@@ -40,7 +40,7 @@ BufferGeometry generatePointCloudGeometry(color, width, length) {
       var u = i / width;
       var v = j / length;
       var x = u - 0.5;
-      var y = (cos(u * PI * 8) + sin(v * PI * 8)) / 20;
+      var y = (cos(u * pi * 8) + sin(v * pi * 8)) / 20;
       var z = v - 0.5;
 
       positions[3 * k] = x;
@@ -63,7 +63,7 @@ BufferGeometry generatePointCloudGeometry(color, width, length) {
   return geometry;
 }
 
-Points generatePointcloud(color, width, length) {
+Points generatePointcloud(Color color, int width, int length) {
   var geometry = generatePointCloudGeometry(color, width, length);
   var material = new PointsMaterial(new PointsMaterialParameters()
     ..size = pointSize
@@ -72,7 +72,7 @@ Points generatePointcloud(color, width, length) {
   return pointcloud;
 }
 
-Points generateIndexedPointcloud(color, width, length) {
+Points generateIndexedPointcloud(Color color, int width, int length) {
   var geometry = generatePointCloudGeometry(color, width, length);
   var numPoints = width * length;
   var indices = new Uint16List(numPoints);
@@ -95,7 +95,7 @@ Points generateIndexedPointcloud(color, width, length) {
   return pointcloud;
 }
 
-Points generateIndexedWithOffsetPointcloud(color, width, length) {
+Points generateIndexedWithOffsetPointcloud(Color color, int width, int length) {
   var geometry = generatePointCloudGeometry(color, width, length);
   var numPoints = width * length;
   var indices = new Uint16List(numPoints);
@@ -120,15 +120,15 @@ Points generateIndexedWithOffsetPointcloud(color, width, length) {
   return pointcloud;
 }
 
-Points generateRegularPointcloud(color, width, length) {
+Points generateRegularPointcloud(Color color, int width, int length) {
   var geometry = new Geometry();
-  var colors = [];
+  var colors = <Color>[];
   for (var i = 0; i < width; i++) {
     for (var j = 0; j < length; j++) {
       var u = i / width;
       var v = j / length;
       var x = u - 0.5;
-      var y = (cos(u * PI * 8) + sin(v * PI * 8)) / 20;
+      var y = (cos(u * pi * 8) + sin(v * pi * 8)) / 20;
       var z = v - 0.5;
       var vec = new Vector3(x, y, z);
       geometry.vertices.add(vec);
@@ -179,9 +179,7 @@ void init() {
   pcRegular.position.set(-5, 0, -5);
   scene.add(pcRegular);
 
-  pointclouds = [pcBuffer, pcIndexed, pcIndexedOffset, pcRegular];
-
-  //
+  pointclouds = <Points>[pcBuffer, pcIndexed, pcIndexedOffset, pcRegular];
 
   var sphereGeometry = new SphereGeometry(0.1, 32, 32);
   var sphereMaterial = new MeshBasicMaterial(new MeshBasicMaterialParameters()
@@ -253,6 +251,6 @@ void render() {
   }
 
   toggle += clock.getDelta();
-
+  
   renderer.render(scene, camera);
 }

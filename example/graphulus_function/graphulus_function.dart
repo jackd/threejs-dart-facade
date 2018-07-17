@@ -70,10 +70,10 @@ void init() {
 
   // renderer
   if (webgl) {
-  	renderer = new WebGLRenderer(
-      new WebGLRendererParameters()..antialias=true);
+    renderer =
+        new WebGLRenderer(new WebGLRendererParameters()..antialias = true);
   } else {
-  	renderer = new CanvasRenderer();
+    renderer = new CanvasRenderer();
   }
   renderer.setSize(width, height);
 
@@ -107,8 +107,9 @@ void init() {
   // grid.rotation.x = math.PI/2;
   // scene.add(grid);
 
-  var polarGrid = new PolarGridHelper(10, 20, 20, 100, new Color(0x000088), new Color(0xff0000));
-  polarGrid.rotation.x = math.PI/2;
+  var polarGrid = new PolarGridHelper(
+      10, 20, 20, 100, new Color(0x000088), new Color(0xff0000));
+  polarGrid.rotation.x = math.pi / 2;
   scene.add(polarGrid);
 
   // shadeMaterial = new MeshLambertMaterial()
@@ -214,7 +215,7 @@ void createGraph() {
   for (var i = 0; i < graphGeometry.faces.length; i++) {
     var face = graphGeometry.faces[i];
     face.vertexColors =
-          [face.a, face.b, face.c].map((i) => graphGeometry.colors[i]).toList();
+        [face.a, face.b, face.c].map((i) => graphGeometry.colors[i]).toList();
     // numberOfSides = (face is Face3) ? 3 : 4;
     // face.vertexColors = new List<Color>(numberOfSides);
     // face.vertexColors[0] = graphGeometry.colors[face.a];
@@ -304,4 +305,5 @@ void update() {
 
 void render() {
   renderer.render(scene, camera);
+  onWindowResize(null);
 }
