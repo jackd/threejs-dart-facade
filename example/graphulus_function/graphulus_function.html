@@ -8,20 +8,26 @@
 </head>
 <body>
 
-<!-- <script src="js/parser.js"></script> -->
-
-<script src="packages/threejs_facade/js/three.js"></script>
-<script src="packages/threejs_facade/js/controls/TrackballControls.js"></script>
-<!-- <script src="packages/threejs_facade/js/renderers/Projector.js"></script> -->
-<!-- <script src="packages/threejs_facade/js/renderers/CanvasRenderer.js"></script> -->
-<!-- <script type="application/dart" src="graphulus_function.dart"></script>
-<script src="packages/browser/dart.js"></script> -->
-<script defer src="graphulus_function.dart.js"></script>
-
 Based on the three.js demo
 <a href="http://stemkoski.github.io/Three.js/">http://stemkoski.github.io/Three.js/</a>
 
 <div id="container"></div>
-<div>Another div</div>
+<!-- <div>Another div</div> -->
+
+<!-- <script src="js/parser.js"></script> -->
+
+<script src="packages/threejs_facade/js/three.min.js"></script>
+<script src="packages/threejs_facade/js/controls/TrackballControls.js"></script>
+
+<!-- For using CanvasRenderer - currently not working. Also change webgl flag in .dart -->
+<!-- <script src="packages/threejs_facade/js/renderers/Projector.js"></script> -->
+<!-- <script src="packages/threejs_facade/js/renderers/CanvasRenderer.js"></script> -->
+
+<!-- For dart 1.x -->
+<!-- <script type="application/dart" src="graphulus_function.dart"></script> -->
+<!-- <script src="packages/browser/dart.js"></script> -->
+
+<!-- For dart 2.x -->
+<script defer src="graphulus_function.dart.js"></script>
 </body>
 </html>

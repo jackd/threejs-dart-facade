@@ -9,6 +9,10 @@ import 'package:threejs_facade/renderers/canvas_renderer.dart';
 	Three.js "tutorials by example"
 	Author: Lee Stemkoski
 	Date: July 2013 (three.js v59dev)
+
+  Ported to dart
+  Author: Dominic Jack
+  Date: July 2018
 */
 
 DivElement container;
