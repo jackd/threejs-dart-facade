@@ -1754,7 +1754,7 @@ class Material {
   external bool get needsUpdate;
   external set needsUpdate(bool v);
   external void setValues(Object values);
-  external dynamic toJSON(dynamic meta);
+  // external dynamic toJSON(dynamic meta);
   // external Material clone(Material source);
   external void update();
   external void dispose();
@@ -2256,7 +2256,7 @@ class MultiMaterial extends Material {
   external set materials(List<Material> v);
 
   //external Func0<dynamic> get toJSON;
-  external set toJSON(Func0<dynamic> v);
+  // external set toJSON(Func0<dynamic> v);
   external MultiMaterial clone();
 }
 
