@@ -1,12 +1,23 @@
 @JS('THREE')
 library threejs_facade;
 
-import "package:func/func.dart";
-import "package:js/js.dart";
+// import "package:func/func.dart";
+// import "package:function_types/function_types.dart";
+import 'package:js/js.dart';
 import 'dart:html';
 import 'dart:web_audio' show AudioContext;
 // import 'dart:typed_data';
 // import 'package:meta/meta.dart';
+
+typedef R Func0<R>();
+typedef R Func1<T1, R>(T1 t1);
+typedef R Func2<T1, T2, R>(T1 t1, T2 t2);
+
+typedef void VoidFunc0();
+typedef void VoidFunc1<T1>(T1 t1);
+typedef void VoidFunc2<T1, T2>(T1 t1, T2 t2);
+typedef void VoidFunc3<T1, T2, T3>(T1 t1, T2 t2, T3 t3);
+
 
 external int get REVISION;
 
